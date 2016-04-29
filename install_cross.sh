@@ -4,6 +4,7 @@ echo "Installing PX4 Cross-Compile Toolchain for Raspberry Pi"
 echo "======================================================="
 
 TOOLCHAIN_DIR="$1"
+#TODO : check for valid path
 if [ "${TOOLCHAIN_DIR}" == "" ]; then
   echo -e "No install path specified, installing to default location at /opt/rpi_toolchain/\n"
   TOOLCHAIN_DIR="/opt/rpi_toolchain"
@@ -18,6 +19,7 @@ else
     echo "Toolchain download failure"
     exit 1
 fi
+
 sudo mkdir -p $TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian
 
 MACHINE_TYPE=`uname -m`
@@ -29,11 +31,9 @@ else
   sudo cp -r rpi_toolchain/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/* $TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian
 fi
 
-if [ "${TOOLCHAIN_DIR}" != "/opt/rpi_toolchain/" ]; then
-  exportline="export RPI_TOOLCHAIN_DIR=$TOOLCHAIN_DIR"
-  if grep -Fxq "$exportline" ~/.profile; then echo 'Already installed' ; else echo $exportline >> ~/.profile; fi
-fi
-
+exportline="export RPI_TOOLCHAIN_DIR=$TOOLCHAIN_DIR"
+if grep -Fxq "$exportline" ~/.profile; then echo 'Already installed' ; else echo $exportline >> ~/.profile; fi
+  
 echo -e "Cleaning up\n"
 rm -rf rpi_toolchain
 
