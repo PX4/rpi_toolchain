@@ -12,7 +12,7 @@ else
   echo "Installing cross-compiler to $TOOLCHAIN_DIR"
 fi
 
-git clone --depth 1 https://github.com/raspberrypi/tools.git rpi_toolchain
+git clone --depth 1 https://github.com/raspberrypi/tools.git  $TOOLCHAIN_DIR
 if [ $? -eq 0 ]; then
     echo "Toolchain downloaded successfully"
 else
