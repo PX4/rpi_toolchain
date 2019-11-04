@@ -20,24 +20,24 @@ else
     exit 1
 fi
 
-sudo mkdir -p $TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian
+sudo mkdir -p $TOOLCHAIN_DIR/arm-rpi-4.9.3-linux-gnueabihf
 
 MACHINE_TYPE=`uname -m`
 if [ "${MACHINE_TYPE}" == "x86_64" ]; then
   echo "Installing for x86_64 system"
-  sudo cp -r rpi_toolchain/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/* $TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian
+  sudo cp -r rpi_toolchain/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf-x64/* $TOOLCHAIN_DIR/arm-rpi-4.9.3-linux-gnueabihf
 else
   echo "Installing for x86_32 system"
-  sudo cp -r rpi_toolchain/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/* $TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian
+  sudo cp -r rpi_toolchain/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/* $TOOLCHAIN_DIR/arm-rpi-4.9.3-linux-gnueabihf
 fi
 
 exportline="export RPI_TOOLCHAIN_DIR=$TOOLCHAIN_DIR"
 if grep -Fxq "$exportline" ~/.profile; then echo 'Already installed' ; else echo $exportline >> ~/.profile; fi
-  
+
 echo -e "Cleaning up\n"
 rm -rf rpi_toolchain
 
-$TOOLCHAIN_DIR/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-gcc --version
+$TOOLCHAIN_DIR/arm-rpi-4.9.3-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc --version
 
 if [ $? -eq 0 ]; then
     echo -e "Install complete"
